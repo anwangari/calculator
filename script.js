@@ -59,8 +59,16 @@ numberButtons.forEach(button => {
 operatorButtons.forEach(button => {
   button.addEventListener('click', () => {
     // If no number has been entered yet, don't process the operator
+    if (isResultDisplayed) {
+      num1 = parseFloat(display.textContent);
+      currentDisplay = "";
+      isResultDisplayed = false;
+      operator = button.textContent;
+      return;
+    }
+        
     if (currentDisplay === '' && num1 === null) return;
-    
+
     // If there's a current display, process it as a number
     if (currentDisplay !== '') {
       if (num1 === null) {
@@ -99,9 +107,6 @@ equalButton.addEventListener('click', () => {
 
     // Prepare for possible next calculation
     currentDisplay = result.toString();
-    num1 = result;
-    num2 = null;
-    operator = null;
     isResultDisplayed = true;
   }
 });
